@@ -79,6 +79,7 @@ func (coolq *CoolQ) SetGroupKick(GroupID, UserID int, AddRequest bool) error {
 	return err
 }
 
+//SetGroupUserBan 禁言某个用户
 func (coolq *CoolQ) SetGroupUserBan(GroupID, UserID, Time int) error {
 	_, err := coolq.httpPOST("/set_group_ban", Map{
 		"group_id": GroupID,
@@ -88,6 +89,7 @@ func (coolq *CoolQ) SetGroupUserBan(GroupID, UserID, Time int) error {
 	return err
 }
 
+//SetGroupUserAnonymousBan 禁言某个匿名
 func (coolq *CoolQ) SetGroupUserAnonymousBan(GroupID int, Flag string, Time int) error {
 	_, err := coolq.httpPOST("/set_group_anonymous_ban", Map{
 		"group_id": GroupID,
@@ -97,6 +99,7 @@ func (coolq *CoolQ) SetGroupUserAnonymousBan(GroupID int, Flag string, Time int)
 	return err
 }
 
+//SetGroupBan 全体禁言
 func (coolq *CoolQ) SetGroupBan(GroupID int, Enable bool) error {
 	_, err := coolq.httpPOST("/set_group_whole_ban", Map{
 		"group_id": GroupID,
@@ -105,6 +108,7 @@ func (coolq *CoolQ) SetGroupBan(GroupID int, Enable bool) error {
 	return err
 }
 
+//SetGroupAdmin 设置管理员
 func (coolq *CoolQ) SetGroupAdmin(GroupID, UserID int, Enable bool) error {
 	_, err := coolq.httpPOST("/set_group_admin", Map{
 		"group_id": GroupID,
@@ -114,6 +118,7 @@ func (coolq *CoolQ) SetGroupAdmin(GroupID, UserID int, Enable bool) error {
 	return err
 }
 
+//SetGroupAnonymous 设置是否可匿名
 func (coolq *CoolQ) SetGroupAnonymous(GroupID int, Enable bool) error {
 	_, err := coolq.httpPOST("/set_group_anonymous", Map{
 		"group_id": GroupID,
@@ -122,6 +127,7 @@ func (coolq *CoolQ) SetGroupAnonymous(GroupID int, Enable bool) error {
 	return err
 }
 
+//SetGroupCard 设置群名片
 func (coolq *CoolQ) SetGroupCard(GroupID, UserID int, Card string) error {
 	_, err := coolq.httpPOST("/set_group_card", Map{
 		"group_id": GroupID,
@@ -131,6 +137,7 @@ func (coolq *CoolQ) SetGroupCard(GroupID, UserID int, Card string) error {
 	return err
 }
 
+//SetGroupTitle 设置群头衔
 func (coolq *CoolQ) SetGroupTitle(GroupID, UserID int, Title string, Duration int) error {
 	_, err := coolq.httpPOST("/set_group_special_title", Map{
 		"group_id":      GroupID,
@@ -141,6 +148,7 @@ func (coolq *CoolQ) SetGroupTitle(GroupID, UserID int, Title string, Duration in
 	return err
 }
 
+//LeaveGroup 离群
 func (coolq *CoolQ) LeaveGroup(GroupID int, IsDismiss bool) error {
 	_, err := coolq.httpPOST("/set_group_leave", Map{
 		"group_id":   GroupID,
@@ -149,6 +157,7 @@ func (coolq *CoolQ) LeaveGroup(GroupID int, IsDismiss bool) error {
 	return err
 }
 
+//SetGroupRequest 处理群请求
 func (coolq *CoolQ) SetGroupRequest(Flag, Type string, Approve bool, Reason string) error {
 	_, err := coolq.httpPOST("/set_group_add_request", Map{
 		"flag":    Flag,

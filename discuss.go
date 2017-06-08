@@ -1,6 +1,6 @@
 package coolq
 
-// send_discuss_msg
+//SendDiscussMsg 发送聊天室消息
 func (coolq *CoolQ) SendDiscussMsg(DiscussID int, Message string, IsRaw bool) error {
 	_, err := coolq.httpPOST("/send_discuss_msg", Map{
 		"discuss_id": DiscussID,

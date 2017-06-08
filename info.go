@@ -4,19 +4,23 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
+//LoginInfo 登录信息
 type LoginInfo struct {
 	UserID   int64  `mapstructure:"user_id"`
 	Nickname string `mapstructure:"nickname"`
 }
 
+//Cookies Cookies信息
 type Cookies struct {
 	Cookies string `mapstructure:"cookies"`
 }
 
+//Token  Token信息
 type Token struct {
 	Token int64
 }
 
+//StrangerInfo 陌生人信息
 type StrangerInfo struct {
 	UserID   int    `mapstructure:"user_id"`
 	Nickname string `mapstructure:"nickname"`
@@ -24,45 +28,49 @@ type StrangerInfo struct {
 	Age      int    `mapstructure:"age"`
 }
 
-func (coolq *CoolQ) GetLoginInfo() (error, *LoginInfo) {
+//GetLoginInfo 获得当前登录信息
+func (coolq *CoolQ) GetLoginInfo() (*LoginInfo, error) {
 	info, err := coolq.httpPOST("/get_login_info", nil)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 	var loginInfo LoginInfo
 	err = mapstructure.Decode(info, &loginInfo)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
-	return nil, &loginInfo
+	return &loginInfo, nil
 }
 
-func (coolq *CoolQ) GetCookies() (error, *Cookies) {
+//GetCookies 获得登录Cookie
+func (coolq *CoolQ) GetCookies() (*Cookies, error) {
 	info, err := coolq.httpPOST("/get_cookies", nil)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 	var cookieInfo Cookies
 	err = mapstructure.Decode(info, &cookieInfo)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
-	return nil, &cookieInfo
+	return &cookieInfo, nil
 }
 
-func (coolq *CoolQ) GetCsrfToken() (error, *Token) {
+//GetCsrfToken 获得Token
+func (coolq *CoolQ) GetCsrfToken() (*Token, error) {
 	info, err := coolq.httpPOST("/get_csrf_token", nil)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 	var tokenInfo Token
 	err = mapstructure.Decode(info, &tokenInfo)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
-	return nil, &tokenInfo
+	return &tokenInfo, nil
 }
 
+//GetStrangerInfo 获得陌生人信息
 func (coolq *CoolQ) GetStrangerInfo(UserID int, NoCache bool) (*StrangerInfo, error) {
 	info, err := coolq.httpPOST("/get_stranger_info", Map{
 		"user_id":  UserID,
