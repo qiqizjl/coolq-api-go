@@ -10,7 +10,7 @@ func (coolq *CoolQ) SendDiscussMsg(DiscussID int, Message string, IsRaw bool) er
 	return err
 }
 
-// set_discuss_leave
+//LeaveDiscuss 离开聊天室
 func (coolq *CoolQ) LeaveDiscuss(DiscussID int) error {
 	_, err := coolq.httpPOST("/set_discuss_leave", Map{
 		"discuss_id": DiscussID,
