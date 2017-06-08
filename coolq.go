@@ -6,7 +6,7 @@ type CoolQ struct {
 	Token string
 }
 
-type CoolQMap map[string]interface{}
+type Map map[string]interface{}
 
 func NewCoolQ(url, token string) *CoolQ {
 	coolq := &CoolQ{

@@ -6,16 +6,16 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-type CoolQGetLogin struct {
+type LoginInfo struct {
 	UserID   int64  `mapstructure:"user_id"`
 	Nickname string `mapstructure:"nickname"`
 }
 
-type CoolQCookies struct {
+type Cookies struct {
 	Cookies string `mapstructure:"cookies"`
 }
 
-type CoolQToken struct {
+type Token struct {
 	Token int64
 }
 
@@ -26,12 +26,12 @@ type StrangerInfo struct {
 	Age      int    `mapstructure:"age"`
 }
 
-func (coolq *CoolQ) GetLoginInfo() (error, *CoolQGetLogin) {
+func (coolq *CoolQ) GetLoginInfo() (error, *LoginInfo) {
 	info, err := coolq.httpPOST("/get_login_info", nil)
 	if err != nil {
 		return err, nil
 	}
-	var loginInfo CoolQGetLogin
+	var loginInfo LoginInfo
 	err = mapstructure.Decode(info, &loginInfo)
 	if err != nil {
 		return err, nil
@@ -39,12 +39,12 @@ func (coolq *CoolQ) GetLoginInfo() (error, *CoolQGetLogin) {
 	return nil, &loginInfo
 }
 
-func (coolq *CoolQ) GetCookies() (error, *CoolQCookies) {
+func (coolq *CoolQ) GetCookies() (error, *Cookies) {
 	info, err := coolq.httpPOST("/get_cookies", nil)
 	if err != nil {
 		return err, nil
 	}
-	var cookieInfo CoolQCookies
+	var cookieInfo Cookies
 	err = mapstructure.Decode(info, &cookieInfo)
 	if err != nil {
 		return err, nil
@@ -52,12 +52,12 @@ func (coolq *CoolQ) GetCookies() (error, *CoolQCookies) {
 	return nil, &cookieInfo
 }
 
-func (coolq *CoolQ) GetCsrfToken() (error, *CoolQToken) {
+func (coolq *CoolQ) GetCsrfToken() (error, *Token) {
 	info, err := coolq.httpPOST("/get_csrf_token", nil)
 	if err != nil {
 		return err, nil
 	}
-	var tokenInfo CoolQToken
+	var tokenInfo Token
 	err = mapstructure.Decode(info, &tokenInfo)
 	fmt.Println(tokenInfo)
 	if err != nil {
@@ -67,7 +67,7 @@ func (coolq *CoolQ) GetCsrfToken() (error, *CoolQToken) {
 }
 
 func (coolq *CoolQ) GetStrangerInfo(UserID int, NoCache bool) (*StrangerInfo, error) {
-	info, err := coolq.httpPOST("/get_stranger_info", CoolQMap{
+	info, err := coolq.httpPOST("/get_stranger_info", Map{
 		"user_id":  UserID,
 		"no_cache": NoCache,
 	})
