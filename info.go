@@ -1,8 +1,6 @@
 package coolq
 
 import (
-	"fmt"
-
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -59,7 +57,6 @@ func (coolq *CoolQ) GetCsrfToken() (error, *Token) {
 	}
 	var tokenInfo Token
 	err = mapstructure.Decode(info, &tokenInfo)
-	fmt.Println(tokenInfo)
 	if err != nil {
 		return err, nil
 	}

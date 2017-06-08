@@ -43,7 +43,6 @@ func (coolq *CoolQ) httpPOST(route string, data map[string]interface{}) (interfa
 	//解析JSON
 	result := coolQResult{}
 	json.Unmarshal([]byte(body), &result)
-	fmt.Println(string(body))
 	if result.Status != "ok" {
 		//处理retcode
 		if result.Retcode == 100 {
