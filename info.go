@@ -27,7 +27,7 @@ type StrangerInfo struct {
 }
 
 func (coolq *CoolQ) GetLoginInfo() (error, *CoolQGetLogin) {
-	err, info := coolq.httpPOST("/get_login_info", nil)
+	info, err := coolq.httpPOST("/get_login_info", nil)
 	if err != nil {
 		return err, nil
 	}
@@ -40,7 +40,7 @@ func (coolq *CoolQ) GetLoginInfo() (error, *CoolQGetLogin) {
 }
 
 func (coolq *CoolQ) GetCookies() (error, *CoolQCookies) {
-	err, info := coolq.httpPOST("/get_cookies", nil)
+	info, err := coolq.httpPOST("/get_cookies", nil)
 	if err != nil {
 		return err, nil
 	}
@@ -53,7 +53,7 @@ func (coolq *CoolQ) GetCookies() (error, *CoolQCookies) {
 }
 
 func (coolq *CoolQ) GetCsrfToken() (error, *CoolQToken) {
-	err, info := coolq.httpPOST("/get_csrf_token", nil)
+	info, err := coolq.httpPOST("/get_csrf_token", nil)
 	if err != nil {
 		return err, nil
 	}
@@ -67,7 +67,7 @@ func (coolq *CoolQ) GetCsrfToken() (error, *CoolQToken) {
 }
 
 func (coolq *CoolQ) GetStrangerInfo(UserID int, NoCache bool) (*StrangerInfo, error) {
-	err, info := coolq.httpPOST("/get_stranger_info", CoolQMap{
+	info, err := coolq.httpPOST("/get_stranger_info", CoolQMap{
 		"user_id":  UserID,
 		"no_cache": NoCache,
 	})
