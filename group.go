@@ -24,6 +24,12 @@ type GroupMemberInfo struct {
 //GroupMmeberList 用户列表
 type GroupMmeberList []GroupMemberInfo
 
+//GroupList 群列表
+type GroupList []struct {
+	GroupID   int    `mapstructure:"group_id"`
+	GroupName string `mapstructure:"group_name"`
+}
+
 //SendGroupMsg 发送群消息
 func (coolq *CoolQ) SendGroupMsg(GourpID int, Message string, IsRaw bool) error {
 	// send_private_msg
@@ -166,4 +172,19 @@ func (coolq *CoolQ) SetGroupRequest(Flag, Type string, Approve bool, Reason stri
 		"reason":  Reason,
 	})
 	return err
+}
+
+//GetGroupList 获得群组列表
+func (coolq *CoolQ) GetGroupList() (*GroupList, error) {
+	info, err := coolq.httpPOST("/get_group_list", nil)
+	// GroupList
+	if err != nil {
+		return nil, err
+	}
+	var groupList GroupList
+	err = mapstructure.Decode(info, &groupList)
+	if err != nil {
+		return nil, err
+	}
+	return &groupList, nil
 }
