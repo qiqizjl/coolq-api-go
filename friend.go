@@ -1,7 +1,7 @@
 package coolq
 
 //SendPriviateMsg 发送私聊
-func (coolq *CoolQ) SendPriviateMsg(UserID int, Message string, IsRaw bool) error {
+func (coolq *CoolQ) SendPriviateMsg(UserID int, Message interface{}, IsRaw bool) error {
 	// send_private_msg
 	_, err := coolq.httpPOST("/send_private_msg", Map{
 		"user_id": UserID,
@@ -21,12 +21,11 @@ func (coolq *CoolQ) SendLike(UserID, Number int) error {
 }
 
 //SetFriendRequest 处理好友请求
-func (coolq *CoolQ) SetFriendRequest(Flag, Type string, Approve bool, Reason string) error {
+func (coolq *CoolQ) SetFriendRequest(Flag, Type string, Approve bool, Remark string) error {
 	_, err := coolq.httpPOST("/set_friend_add_request", Map{
 		"flag":    Flag,
-		"type":    Type,
 		"approve": Approve,
-		"reason":  Reason,
+		"remark":  Remark,
 	})
 	return err
 }

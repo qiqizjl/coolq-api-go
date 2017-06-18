@@ -31,10 +31,10 @@ type GroupList []struct {
 }
 
 //SendGroupMsg 发送群消息
-func (coolq *CoolQ) SendGroupMsg(GourpID int, Message string, IsRaw bool) error {
+func (coolq *CoolQ) SendGroupMsg(GroupID int, Message interface{}, IsRaw bool) error {
 	// send_private_msg
 	_, err := coolq.httpPOST("/send_group_msg", Map{
-		"group_id": GourpID,
+		"group_id": GroupID,
 		"message":  Message,
 		"is_raw":   IsRaw,
 	})
