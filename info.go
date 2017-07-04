@@ -28,6 +28,12 @@ type StrangerInfo struct {
 	Age      int    `mapstructure:"age"`
 }
 
+//SystemInfo 插件信息
+type SystemInfo struct {
+	CoolqEdition  string `mapstructure:"coolq_edition"`
+	PluginVersion string `mapstructure:"plugin_version"`
+}
+
 //GetLoginInfo 获得当前登录信息
 func (coolq *CoolQ) GetLoginInfo() (*LoginInfo, error) {
 	info, err := coolq.httpPOST("/get_login_info", nil)
@@ -85,4 +91,18 @@ func (coolq *CoolQ) GetStrangerInfo(UserID int, NoCache bool) (*StrangerInfo, er
 		return nil, err
 	}
 	return &strangerInfo, nil
+}
+
+//GetSystemInfo 获得版本号信息
+func (coolq *CoolQ) GetSystemInfo() (*SystemInfo, error) {
+	info, err := coolq.httpPOST("/get_version_info", Map{})
+	if err != nil {
+		return nil, err
+	}
+	var systmInfo SystemInfo
+	err = mapstructure.Decode(info, &systmInfo)
+	if err != nil {
+		return nil, err
+	}
+	return &systmInfo, nil
 }
