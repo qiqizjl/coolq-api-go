@@ -11,6 +11,24 @@ func (coolq *CoolQ) SendPriviateMsg(UserID int, Message interface{}, IsRaw bool)
 	return err
 }
 
+//SendPriviateMoreMsg 发送多个人消息
+func (coolq *CoolQ) SendPriviateMoreMsg(UserIDs []int, Message interface{}, IsRaw bool) (bool, []error) {
+	if len(UserIDs) <= 0 {
+		return false, nil
+	}
+	errReturn := make([]error, 0)
+	haveError := false
+	for _, UserID := range UserIDs {
+		// errReturn = append(errReturn, coolq.SendPriviateMsg(UserID, Message, IsRaw))
+		returns := coolq.SendPriviateMsg(UserID, Message, IsRaw)
+		if returns != nil {
+			haveError = true
+		}
+		errReturn = append(errReturn, returns)
+	}
+	return haveError, errReturn
+}
+
 //SendLike 点赞
 func (coolq *CoolQ) SendLike(UserID, Number int) error {
 	_, err := coolq.httpPOST("/send_like", Map{
